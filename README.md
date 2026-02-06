@@ -21,9 +21,9 @@ Aplikacja do śledzenia wypitych kaw.
 
 Wymagania: Docker
 
-```bash
+bash
 docker compose up --build
-```
+
 
 Aplikacja: http://localhost:8000
 
@@ -31,9 +31,9 @@ Dokumentacja API: http://localhost:8000/docs
 
 Zatrzymanie:
 
-```bash
+bash
 docker compose down
-```
+
 
 ## Endpointy
 
@@ -47,35 +47,28 @@ docker compose down
 | GET | `/coffee/stats` | Statystyki |
 | DELETE | `/coffee/{id}` | Usuń kawę |
 
-## Przykład
-
-```bash
-curl -X POST http://localhost:8000/coffee \
-  -H "Content-Type: application/json" \
-  -d '{"coffee_type": "latte", "size": "large"}'
-```
-
 ## Struktura projektu
 
-```
+
 coffee-counter/
-├── app/
-│   ├── __init__.py
-│   ├── main.py          # Główna aplikacja FastAPI
-│   ├── database.py      # Konfiguracja bazy danych
-│   └── models.py        # Modele danych
-├── tests/
-│   └── test_main.py     # Testy jednostkowe
-├── .github/
-│   └── workflows/
-│       ├── main.yml           # Pipeline dla main branch
-│       ├── pr.yml             # Pipeline dla pull requestów
-│       └── reusable-build.yml # Reusable workflow
-├── Dockerfile           # Multi-stage build
-├── docker-compose.yml   # Konfiguracja kontenerów
-├── requirements.txt     # Zależności Python
-└── README.md
-```
+── app/
+   ── main.py          # Główna aplikacja FastAPI
+   ── database.py      # Konfiguracja bazy danych
+   ── models.py        # Modele danych
+── tests/
+   ── test_main.py     # Testy jednostkowe
+── .github/
+   ── actions/
+      ── coffee-summary/
+          ── action.yml    # Własna akcja GitHub
+   ── workflows/
+       ── main.yml           # Pipeline dla main branch
+       ── pr.yml             # Pipeline dla pull requestów
+       ── reusable-build.yml # Reusable workflow
+── Dockerfile           # Multi-stage build
+── docker-compose.yml   # Konfiguracja kontenerów
+── requirements.txt     # Zależności Python
+
 
 ## CI/CD
 
@@ -84,7 +77,6 @@ Projekt wykorzystuje GitHub Actions:
 - **PR Check** — testy i linting przy PR
 - **Main Pipeline** — budowanie i publikacja obrazu do GHCR
 - **Reusable Workflow** — współdzielona logika buildowania
-
----
+- **Własna akcja** — coffee-summary wyświetlająca podsumowanie projektu
 
 Projekt zaliczeniowy – Nowatorski Projekt Indywidualny (DevOps)

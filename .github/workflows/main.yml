@@ -50,3 +50,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      # Używam własnej akcji
+      - name: Podsumowanie projektu
+        uses: ./.github/actions/coffee-summary
+        with:
+          show-endpoints: 'true'

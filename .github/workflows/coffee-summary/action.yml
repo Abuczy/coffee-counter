@@ -1,0 +1,39 @@
+name: 'Coffee Stats Summary'
+description: 'Wyświetla podsumowanie projektu Coffee Counter'
+author: 'Abuczy'
+
+inputs:
+  show-endpoints:
+    description: 'Czy pokazać listę endpointów'
+    required: false
+    default: 'true'
+
+outputs:
+  summary:
+    description: 'Podsumowanie projektu'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Generuj podsumowanie
+      shell: bash
+      run: |
+        echo "☕ Coffee Counter - Podsumowanie projektu"
+        echo "========================================="
+        echo ""
+        echo "📁 Struktura projektu:"
+        echo "   - app/ (kod aplikacji)"
+        echo "   - tests/ (testy)"
+        echo "   - Dockerfile (multi-stage build)"
+        echo "   - docker-compose.yml (app + PostgreSQL)"
+        echo ""
+        if [ "${{ inputs.show-endpoints }}" == "true" ]; then
+          echo "🔗 Endpointy API:"
+          echo "   POST /coffee - Dodaj kawę"
+          echo "   GET  /coffee - Lista kaw"
+          echo "   GET  /coffee/today - Dzisiejsze kawy"
+          echo "   GET  /coffee/stats - Statystyki"
+          echo "   DELETE /coffee/{id} - Usuń kawę"
+          echo ""
+        fi
+        echo "✅ Projekt gotowy do deploymentu!"

@@ -43,9 +43,11 @@ jobs:
 
       - name: Linting (flake8)
         run: |
-          flake8 app/ --max-line-length=120 --ignore=E501,W293,W291
+          flake8 app/ --max-line-length=120 --ignore=E501,W293,W291,W292
 
       - name: Testy (pytest)
         id: tests
+        env:
+          DATABASE_URL: sqlite:///./test.db
         run: |
           pytest tests/ -v

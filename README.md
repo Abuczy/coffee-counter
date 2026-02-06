@@ -49,27 +49,26 @@ docker compose down
 
 ## Struktura projektu
 
-
+```
 coffee-counter/
-── app/
-   ── main.py          # Główna aplikacja FastAPI
-   ── database.py      # Konfiguracja bazy danych
-   ── models.py        # Modele danych
-── tests/
-   ── test_main.py     # Testy jednostkowe
-── .github/
-   ── actions/
-      ── coffee-summary/
-          ── action.yml    # Własna akcja GitHub
-   ── workflows/
-       ── main.yml           # Pipeline dla main branch
-       ── pr.yml             # Pipeline dla pull requestów
-       ── reusable-build.yml # Reusable workflow
-── Dockerfile           # Multi-stage build
-── docker-compose.yml   # Konfiguracja kontenerów
-── requirements.txt     # Zależności Python
-
-
+├── app/
+│   ├── main.py          # Główna aplikacja FastAPI
+│   ├── database.py      # Konfiguracja bazy danych
+│   └── models.py        # Modele danych
+├── tests/
+│   └── test_main.py     # Testy jednostkowe
+├── .github/
+│   ├── actions/
+│   │   └── coffee-summary/
+│   │       └── action.yml    # Własna akcja GitHub
+│   └── workflows/
+│       ├── main.yml           # Pipeline dla main branch
+│       ├── pr.yml             # Pipeline dla pull requestów
+│       └── reusable-build.yml # Reusable workflow
+├── Dockerfile           # Multi-stage build
+├── docker-compose.yml   # Konfiguracja kontenerów
+└── requirements.txt     # Zależności Python
+```
 ## CI/CD
 
 Projekt wykorzystuje GitHub Actions:

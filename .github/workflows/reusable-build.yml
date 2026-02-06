@@ -1,0 +1,51 @@
+name: Reusable Build & Test
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: '3.11'
+    outputs:
+      test-result:
+        description: "Wynik testów"
+        value: ${{ jobs.build-and-test.outputs.result }}
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.tests.outcome }}
+
+    steps:
+      - name: Checkout kodu
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ inputs.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Instalacja zależności
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      - name: Linting (flake8)
+        run: |
+          flake8 app/ --max-line-length=120 --ignore=E501
+
+      - name: Testy (pytest)
+        id: tests
+        run: |
+          pytest tests/ -v

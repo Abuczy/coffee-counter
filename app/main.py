@@ -56,12 +56,12 @@ def get_today_coffees(db: Session = Depends(get_db)):
 def get_stats(db: Session = Depends(get_db)):
     """Statystyki kawowe"""
     today = date.today()
-    
+
     total = db.query(models.Coffee).count()
     today_count = db.query(models.Coffee).filter(
         func.date(models.Coffee.created_at) == today
     ).count()
-    
+
     # Najpopularniejszy typ kawy
     favorite = db.query(
         models.Coffee.coffee_type,
@@ -69,7 +69,7 @@ def get_stats(db: Session = Depends(get_db)):
     ).group_by(models.Coffee.coffee_type).order_by(
         func.count(models.Coffee.id).desc()
     ).first()
-    
+
     return {
         "total_coffees": total,
         "today_coffees": today_count,
